@@ -29,25 +29,25 @@ lazy val releaseSettings = {
       releaseStepCommand("sonatypeReleaseAll"),
       pushChanges
     ),
-    publishTo := {
-      val nexus = "https://oss.sonatype.org/"
-      if (isSnapshot.value)
-        Some("snapshots" at nexus + "content/repositories/snapshots")
-      else
-        Some("releases" at nexus + "service/local/staging/deploy/maven2")
-    },
-    credentials ++= (
-      for {
-        username <- Option(System.getenv().get("SONATYPE_USERNAME"))
-        password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
-      } yield
-        Credentials(
-          "Sonatype Nexus Repository Manager",
-          "oss.sonatype.org",
-          username,
-          password
-        )
-    ).toSeq,
+//    publishTo := {
+//      val nexus = "https://oss.sonatype.org/"
+//      if (isSnapshot.value)
+//        Some("snapshots" at nexus + "content/repositories/snapshots")
+//      else
+//        Some("releases" at nexus + "service/local/staging/deploy/maven2")
+//    },
+//    credentials ++= (
+//      for {
+//        username <- Option(System.getenv().get("SONATYPE_USERNAME"))
+//        password <- Option(System.getenv().get("SONATYPE_PASSWORD"))
+//      } yield
+//        Credentials(
+//          "Sonatype Nexus Repository Manager",
+//          "oss.sonatype.org",
+//          username,
+//          password
+//        )
+//    ).toSeq,
     publishArtifact in Test := false,
     releasePublishArtifactsAction := PgpKeys.publishSigned.value,
     scmInfo := Some(
@@ -354,7 +354,7 @@ lazy val publishSettings = Seq(
   scmInfo := Some(ScmInfo(url("https://github.com/jmcardon/tsec"), "scm:git:git@github.com:jmcardon/tsec.git")),
   autoAPIMappings := true,
   apiURL := None
-)
+) ++ subsidy.StashSettings.settings
 
 lazy val noPublishSettings = {
   import com.typesafe.sbt.pgp.PgpKeys.publishSigned

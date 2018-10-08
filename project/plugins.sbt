@@ -1,4 +1,11 @@
 logLevel := Level.Warn
+
+resolvers += Resolver.url("stash-public", url("https://stash.alscloud.io/artifactory/public/"))(
+  Resolver.ivyStylePatterns
+)
+
+addSbtPlugin("fo.als.subsidy" %% "subsidy-sbt" % "3.0.1")
+
 addSbtPlugin("com.lucidchart"     % "sbt-scalafmt"   % "1.15")
 addSbtPlugin("com.47deg"          % "sbt-microsites" % "0.7.18")
 addSbtPlugin("org.tpolecat"       % "tut-plugin"     % "0.6.7")
